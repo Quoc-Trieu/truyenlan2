@@ -1,0 +1,331 @@
+@use '../../styles/scss/' as *;
+
+#homePage {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(253, 243, 230);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  .header {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: rgb(0, 26, 110);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    .headerLeft {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      img {
+        width: 50px;
+        height: 50px;
+      }
+
+      span {
+        font-size: 28px;
+        font-weight: 600;
+        margin-left: 10px;
+        color: #fff;
+      }
+    }
+
+    .headerCenter {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+
+      .dropDanhSach {
+        background-color: #ffffff;
+        padding: 2px 10px;
+        border-radius: 2px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+
+        span {
+          font-size: 16px;
+          font-weight: 400;
+          color: #686868;
+        }
+
+      }
+
+      .timKiem {
+        width: 250px;
+        height: 35px;
+        border-radius: 20px;
+        background-color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        input {
+          width: 80%;
+          font-size: 16px;
+          font-weight: 500;
+          margin-left: 20px;
+          border: none;
+          outline: none;
+
+        }
+      }
+    }
+
+    .headerRight {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 99px;
+        border: 2px solid #fff;
+      }
+
+      .buttonLogin {
+        margin: auto;
+        padding: 5px 20px;
+        margin: 0 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+
+        span {
+          font-size: 16px;
+          font-weight: 500;
+          color: #010058;
+        }
+      }
+    }
+  }
+
+  //   Truyện HOT
+  .truyenHot {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 30px 50px 10px 50px;
+    overflow: hidden;
+
+    .title {
+      background-color: rgb(248, 147, 252);
+      padding: 5px 15px;
+      border-radius: 25px;
+      border: 1px solid #000;
+
+      span {
+        font-size: 24px;
+        font-weight: 400;
+        color: #000;
+      }
+    }
+
+    .listCardTruyen {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      // margin: 10px 50px 10px 50px;
+      padding: 10px 0;
+      // flex-wrap: wrap;
+      gap: 20px;
+      width: 100%;
+      overflow-x: auto;
+
+      .cardTruyen {
+
+        position: relative;
+        border: 1px solid #5c5c5c;
+        cursor: pointer;
+
+        img {
+          width: 120px;
+          height: 220px;
+          // chế độ hiển thị: ảnh;
+          object-fit: cover;
+        }
+
+        span {
+          position: absolute;
+          width: 100%;
+          bottom: 0;
+          left: 0;
+          text-align: center;
+          font-size: 11px;
+          padding: 2px 5px;
+          background-color: #27272770;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  //   Truyện mới cập nhập
+  .truyenNew {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 0 20px;
+
+    .title {
+      background-color: rgb(18, 76, 163);
+      padding: 5px 15px;
+      border-radius: 25px;
+      margin-left: 30px;
+      padding-top: 7px;
+      margin-bottom: 10px;
+
+      span {
+        font-size: 22px;
+        font-weight: 400;
+        color: #fff;
+      }
+    }
+
+    .listTruyen {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
+      position: relative;
+      overflow-y: auto;
+      height: 300px;
+
+      .itemTruyen {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid #5c5c5c;
+        padding: 0px 10px;
+        border-radius: 2px;
+        cursor: pointer;
+
+        span {
+          color: #686868;
+          font-size: 18px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  // detail truyen
+  .detailStory {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+
+    .Top {
+      display: flex;
+      align-items: start;
+      gap: 15px;
+
+      .left {
+        flex: 3;
+      }
+
+      .right {
+        flex: 7;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .title {
+          font-size: 25px;
+          font-weight: 600;
+          text-transform: uppercase;
+          color: #686868;
+        }
+
+        .box {
+          display: flex;
+          align-items: start;
+          width: 100%;
+          gap: 25px;
+
+          &>span:first-child {
+            width: 100px;
+          }
+
+          &>span {
+            font-size: 19px;
+            font-weight: 400;
+            color: #686868;
+            white-space: nowrap;
+
+          }
+
+          .decreption {
+            font-size: 19px;
+            font-weight: 400;
+            color: #686868;
+          }
+        }
+      }
+    }
+
+    .bottom {
+      .top {
+        display: flex;
+        gap: 10px;
+
+        button {
+          border: 1px solid #686868;
+          background-color: #010058;
+          color: #fff;
+          padding: 10px 15px;
+          border-radius: 10px;
+        }
+
+        input {
+          border: 1px solid #686868;
+          border-radius: 10px;
+          padding: 10px 15px;
+        }
+      }
+    }
+  }
+
+  // readStory
+  .readStory {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 60px;
+    align-items: center;
+
+    &>span:first-child {
+      font-size: 25px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #686868;
+    }
+
+    div {
+      text-align: start;
+      width: 100%;
+    }
+  }
+}
