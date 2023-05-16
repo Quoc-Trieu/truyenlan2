@@ -23,19 +23,17 @@ function Register() {
 
 
   const onSubmit = (data) => {
-    formData.append('fullName', data.name);
-    formData.append('email', data.email.toLowerCase());
-    formData.append('password', data.password);
-    formData.append('phone', data.phone);
-    formData.append('code', data.code);
-    Notiflix.Loading.pulse();
-
-    Axiosregister(formData)
+    Axiosregister({
+      ...data,
+      role: role.id,
+      "avatar": "string",
+      "isDelete": "ACTIVE",
+    })
       .then(() => {
         console.log('Đăng ký thành công');
-        Notiflix.Notify.success('Đăng ký thành công')
+        Notiflix.Notify.success('Đăng ký thành công vui lòng đăng nhập')
         Notiflix.Loading.remove();
-        navigate('/')
+        navigate('/login')
       })
       .catch((err) => {
         console.log(err);
@@ -58,7 +56,7 @@ function Register() {
       title: 'Người xem'
     },
     {
-      id: 'VIEWER',
+      id: 'AUTHER',
       title: 'Tác giả'
     },
   ]
@@ -84,16 +82,16 @@ function Register() {
 
           <div className="flex flex-col">
             <label>
-              <div className="flex items-center mt-[10px] gap-[15px]">
+              <div className="flex items-center mt-[10px] gap-[15px] justify-center">
                 <span className="flex font-semibold">
                   Tên người dùng
                 </span>
-                {errors?.name?.type === "required" && <p className="text-[#FF0000] text-[14px]">*Vui lòng nhập tên</p>}
+                {errors?.fullName?.type === "required" && <p className="text-[#FF0000] text-[14px] m-0">*Vui lòng nhập tên</p>}
               </div>
               <input
-                name="name"
+                name="fullName"
                 className="w-full h-[50px] border-2 border-solid rounded-md border-[#BCBCBC] outline-0 px-[20px] mt-[6px]"
-                {...register('name', {
+                {...register('fullName', {
                   required: true,
                 })}
               />
@@ -103,8 +101,8 @@ function Register() {
                 <span className="flex font-semibold ">
                   Địa chỉ Gmail
                 </span>
-                {errors?.email?.type === "required" && <p className="text-[#FF0000] text-[14px]">*Vui lòng nhập tài khoản</p>}
-                {errors?.email?.type === "pattern" && <p className="text-[#FF0000] text-[14px]">*Nhập sai email</p>}
+                {errors?.email?.type === "required" && <p className="text-[#FF0000] text-[14px] m-0">*Vui lòng nhập tài khoản</p>}
+                {errors?.email?.type === "pattern" && <p className="text-[#FF0000] text-[14px] m-0">*Nhập sai email</p>}
               </div>
               <input
                 type='email'
@@ -122,7 +120,7 @@ function Register() {
                 <span className="flex font-semibold">
                   Mật khẩu
                 </span>
-                {errors?.password?.type === "required" && <p className="text-[#FF0000] text-[14px]">*Vui lòng nhập mật khẩu</p>}
+                {errors?.password?.type === "required" && <p className="text-[#FF0000] text-[14px] m-0">*Vui lòng nhập mật khẩu</p>}
               </div>
               <input
                 name="password"
@@ -137,7 +135,7 @@ function Register() {
                 <span className="flex font-semibold">
                   Quyền
                 </span>
-                {errors?.role?.type === "required" && <p className="text-[#FF0000] text-[14px]">*Vui lòng chọn role</p>}
+                {errors?.role?.type === "required" && <p className="text-[#FF0000] text-[14px] m-0">*Vui lòng chọn role</p>}
               </div>
               <input
                 name="role"
@@ -152,9 +150,9 @@ function Register() {
                 isGetRole ?
                   <ul className="w-full bg-[#fff] absolute top-25 z-10 border-[2px] border-solid border-[#ccc] rounded-md p-0">
                     {
-                      listRole.map((item,i) => (
+                      listRole.map((item, i) => (
                         <li
-                          className="w-full text-[17px] font-[500] cursor-pointer hover:bg-[#ccc] p-2"
+                          className="w-full text-[17px] font-[500] cursor-pointer hover:bg-[#ccc] p-2 list-none"
                           key={i}
                           onClick={() => {
                             setRole(item)

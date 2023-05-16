@@ -15,8 +15,5 @@ export const getAdmin = () => {
 }
 
 export const Axiosregister = (data) => {
-    return AxiosClient.post(API_ENDPOINT + 'register', data, {
-        headers: { "Content-Type": "multipart/form-data" },
-    }
-    )
+    return AxiosClient.post('user/createUser', data)
 }

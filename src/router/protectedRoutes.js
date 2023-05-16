@@ -10,13 +10,16 @@ import UserMan from "../screens/tab/userMan/UserMan";
 // import AddSale from "../screens/addSale/AddSale";
 import Author from "../screens/tab/author/Author";
 import CommentMan from "../screens/tab/commentMan/CommentMan";
+import { useSelector } from "react-redux";
+import BaivietMan from "../screens/tab/baivietMan/BaivietMan";
 
 const ProtectedRoutes = () => {
+    const admin = useSelector((state) => state.auth.user);
     return (
 
         <Routes>
             <Route path="/" element={<Home />} >
-                <Route path="/" element={<UserMan />} />
+                {admin.role[0] === 'ADMIN' ? <Route path="/" element={<UserMan />} /> : <Route path="/" element={<BaivietMan />} />}
                 <Route path="/author" element={<Author />} />
                 <Route path="/comment" element={<CommentMan />} />
                 {/* <Route path="/account" element={<Account />} /> */}

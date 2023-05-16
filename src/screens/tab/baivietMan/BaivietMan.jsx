@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { User } from './CommentMan.styles'
+import { User } from './BaivietMan.styles'
 import searchicon from '../../../assets/images/searchicon.png'
 import { AiOutlineLeft } from 'react-icons/ai'
 import { AiOutlineRight } from 'react-icons/ai'
@@ -10,12 +10,15 @@ import { ChangePage, SearchUser } from '../../../store/manager/usermanagerSlice'
 import { selecUser } from '../../../store/detailUser/detailUserSlice'
 import Notiflix from 'notiflix'
 import Dropdown from 'react-bootstrap/Dropdown';
-import { addCmt, getComments } from '../../../services/listStory'
+import { addCmt, getBaiviet, getComments } from '../../../services/listStory'
 
-function CommentMan() {
+function BaivietMan() {
     const [users, setUsers] = useState([]);
     const [page, setPage] = useState(1);
     const [value, setValue] = useState('');
+    const [modal, setModal] = useState(true);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [previewImage, setPreviewImage] = useState(null);
     const navigate = useNavigate()
     const dispatch = useDispatch()
     // handle view detail
@@ -24,9 +27,9 @@ function CommentMan() {
         navigate('/detailUser')
     }
     // get list user
-    const params = useSelector(state => state.commentMan)
+    const params = useSelector(state => state.baivietMan)
     const handleGetuser = () => {
-        getComments(params)
+        getBaiviet(params)
             .then(res => {
                 setUsers(res.data);
                 Notiflix.Loading.remove();
@@ -88,15 +91,30 @@ function CommentMan() {
             })
     }
 
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setSelectedFile(file);
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setPreviewImage(null);
+        }
+    }
+
     return (
         <User>
             {/* header */}
             <User.Header>
                 <User.HeaderTitle>Quản lý bình luận<nav></nav></User.HeaderTitle>
-                {/* <User.HeaderBoxinput >
-                    <User.HeaderInput type="text" placeholder='nhập số diện thoại' value={value} onChange={(e) => handleSearch(e)} />
-                    <User.HeaderIcon onClick={handleBtnSearch} src={searchicon} className="cursor-pointer" />
-                </User.HeaderBoxinput> */}
+                <User.HeaderBoxinput >
+                    thêm truyện
+                </User.HeaderBoxinput>
+
             </User.Header>
             {/* list user */}
             <User.Body>
@@ -104,20 +122,20 @@ function CommentMan() {
                     <User.Table>
                         <thead>
                             <User.TrHead >
-                                <User.Th>Tên user</User.Th>
-                                <User.Th>Nội dung bình luận</User.Th>
-                                <User.Th></User.Th>
-                                <User.Th></User.Th>
+                                <User.Th>Tên truyện</User.Th>
+                                <User.Th>Số chương</User.Th>
+                                <User.Th>chỉnh sửa</User.Th>
+                                <User.Th>Thêm chương</User.Th>
                             </User.TrHead>
                         </thead>
                         <tbody>
                             {
                                 users.data?.map((item, index) => (
                                     <User.Tr key={index}>
-                                        <User.Td>{item.UserInfo.fullName}</User.Td>
+                                        <User.Td>{item.idAuth.fullName}</User.Td>
                                         <User.Td>{item.comment}</User.Td>
-                                        <User.Td onClick={() => { handleXoa(item._id) }}>xoá</User.Td>
-                                        <User.Td onClick={() => { handleDuyet(item._id) }}>duyệt</User.Td>
+                                        <User.Td onClick={() => { handleXoa(item._id) }}>sửa</User.Td>
+                                        <User.Td onClick={() => { handleDuyet(item._id) }}>thêm</User.Td>
                                     </User.Tr>
                                 ))
                             }
@@ -138,8 +156,33 @@ function CommentMan() {
                     </User.PanageBtn>
                 </User.Panage>
             </User.Body>
+
+            {
+                modal ?
+                    <div style={{ position: 'fixed', top: 0, left: 0, bottom: 0, right: 0, backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div>
+                            <div>
+                                <span style={{width: '120px'}}>Tiêu đề truyện:</span>
+                                <input type="text" />
+                            </div>
+                            <div>
+                                <span>Loại truyện:</span>
+                                <input type="text" />
+                            </div>
+                            <div>
+                                <span>Mô tả:</span>
+                                <input type="text" />
+                            </div>
+                            <div>
+                                <input type="file" onChange={handleFileChange} />
+                                {previewImage && <img width={100} src={previewImage} alt="Preview" />}
+                            </div>
+                        </div>
+                    </div> :
+                    <></>
+            }
         </User >
     )
 }
 
-export default CommentMan
+export default BaivietMan

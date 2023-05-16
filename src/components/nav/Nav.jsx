@@ -102,7 +102,6 @@ function Nav() {
                                 <img src={logo} className='w-[200px] h-header' alt="" />
                             </li>
 
-
                             <NavWapper.Li
                                 onClick={() => {
                                     window.open(`http://139.180.215.68:3003/app?token=${getToken()}&role=SALE`, '_blank')
@@ -111,10 +110,11 @@ function Nav() {
                                 className={pathname === '/' ? 'bg-[#465991]' : ''}
                             >
                                 <NavWapper.Img className="w-[40px] h-[40px] ml-[10px]" src={chat} />
-                                <NavWapper.Span>Nhắn tin</NavWapper.Span>
+                                <NavWapper.Span>Quản lý bài viết</NavWapper.Span>
                             </NavWapper.Li>
                         </NavWapper.Ul>)
                 }
+
             </>
             <NavWapper.Out onClick={handleLogOut}>
                 <NavWapper.Img className='w-[25px] h-[25px] max-md:w-[30px] max-md:h-[30px]' src={logOut} />

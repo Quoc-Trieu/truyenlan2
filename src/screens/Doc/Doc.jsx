@@ -10,7 +10,7 @@ import dataTruyenNew from '../../constants/dataTruyenNew';
 import Dropdown from 'react-bootstrap/Dropdown';
 import iconDown from '../../assets/icon-feather-chevron-down.png';
 import { Space, Table, Tag } from 'antd';
-import { createCmt, getchapter, getinfoStory, getList } from '../../services/listStory';
+import { createCmt, getchapter, getchapterNext, getchapterPrev, getinfoStory, getList } from '../../services/listStory';
 import { compareAsc, format } from 'date-fns'
 import Notiflix from 'notiflix';
 import { removeToken } from '../../utils/localStorage';
@@ -135,6 +135,28 @@ const Doc = () => {
     }
 
     const userRole = useSelector((state) => state.auth.user);
+
+    const handlePrev = () => {
+        getchapterPrev(chapter._id)
+            .then(res => {
+                console.log(res.data);
+                setChapter(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    const handleNext = () => {
+        getchapterNext(chapter._id)
+            .then(res => {
+                console.log(res.data);
+                setChapter(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 
     return (
         <div id={styles.homePage}>
@@ -282,7 +304,15 @@ const Doc = () => {
                 readStory ?
                     <div className={styles.readStory}>
                         <span>{infoStory?.title}</span>
-                        <span>chuong {chapter?.index + 1}</span>
+                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                            <span
+                                onClick={handlePrev}
+                                style={{ fontSize: '20px', cursor: 'pointer' }}>&larr;</span>
+                            <span>chuong {chapter?.index + 1}</span>
+                            <span
+                                onClick={handleNext}
+                                style={{ fontSize: '20px', cursor: 'pointer' }}>&#8594;</span>
+                        </div>
                         <p>{chapter?.body}</p>
                     </div>
                     :
