@@ -16,7 +16,7 @@ function BaivietMan() {
     const [users, setUsers] = useState([]);
     const [page, setPage] = useState(1);
     const [value, setValue] = useState('');
-    const [modal, setModal] = useState(true);
+    const [modal, setModal] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewImage, setPreviewImage] = useState(null);
     const navigate = useNavigate()
